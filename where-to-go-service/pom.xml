@@ -11,7 +11,21 @@
 
     <groupId>com.chenfei.where.to.go</groupId>
     <artifactId>where-to-go-service</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.chenfei.where.to.go</groupId>
+            <artifactId>where-to-go-dao</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.chenfei.where.to.go</groupId>
+            <artifactId>where-to-go-model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.chenfei.where.to.go</groupId>
+            <artifactId>where-to-go-common</artifactId>
+        </dependency>
+    </dependencies>
 
 
 </project>
