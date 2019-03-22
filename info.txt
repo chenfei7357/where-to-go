@@ -1,0 +1,8 @@
+项目web地址：
+    http://localhost:9999/where-to-go
+    获取经纬度：
+        http://localhost:9999/where-to-go/lngLat-{addrName}
+    搜索附近：
+        http://localhost:9999/where-to-go/search/eat-{name}
+项目Swagger地址：
+    http://localhost:9999/where-to-go/swagger-ui.html
