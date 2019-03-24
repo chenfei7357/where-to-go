@@ -1,0 +1,21 @@
+server:
+  servlet:
+    context-path: /where-to-go
+  port: 9999
+
+spring:
+  profiles:
+    #默认配置dev环境
+    active: dev
+  #热部署生效
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
+      #classpath目录下的WEB-INF文件夹内容修改不重启
+      exclude: WEB-INF/**
+  thymeleaf:
+    cache: false
+mybatis:
+  mapper-locations: classpath:com/chenfei/where/to/go/mybatis/*.xml
+  type-aliases-package: com.chenfei.where.to.go.model.po
