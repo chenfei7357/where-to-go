@@ -66,6 +66,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
                 excludePath = (String)var2.next();
                 uri = request.getRequestURI();
+                log.info("uri>>>>>>:"+uri);
             } while(!uri.contains(excludePath.trim()));
             return true;
         }

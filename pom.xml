@@ -26,6 +26,9 @@
         <commons-lang3-version>3.7</commons-lang3-version>
         <cors-filter-version>2.6</cors-filter-version>
         <httpclient-version>4.5.5</httpclient-version>
+        <pagehelper-version>1.2.5</pagehelper-version>
+        <guava.verison>20.0</guava.verison>
+        <commons-collections4.version>4.1</commons-collections4.version>
     </properties>
 
     <dependencyManagement>
@@ -111,6 +114,23 @@
                 <groupId>org.apache.httpcomponents</groupId>
                 <artifactId>httpclient</artifactId>
                 <version>${httpclient-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${pagehelper-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.verison}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>${commons-collections4.version}</version>
             </dependency>
 
         </dependencies>

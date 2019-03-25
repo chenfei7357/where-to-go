@@ -8,5 +8,5 @@ import lombok.Data;
 @Data
 public class CommonPageResultResponse<T> extends CommonResultResponse{
 
-    private int total;
+    private Long total;
 }

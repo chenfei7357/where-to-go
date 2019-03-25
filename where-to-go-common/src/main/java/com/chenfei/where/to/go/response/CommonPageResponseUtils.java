@@ -7,7 +7,7 @@ import com.chenfei.where.to.go.enums.ResponseCodeEnum;
 
 public class CommonPageResponseUtils {
 
-    private static <T> CommonPageResultResponse success(T t,Integer total){
+    public static <T> CommonPageResultResponse success(T t,Long total){
         CommonPageResultResponse<T> pageResp = new CommonPageResultResponse();
         pageResp.setCode(ResponseCodeEnum.SUCCESS.getCode());
         pageResp.setMessage(ResponseCodeEnum.SUCCESS.getDesc());

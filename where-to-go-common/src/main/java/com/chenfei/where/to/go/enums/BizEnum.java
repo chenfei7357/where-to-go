@@ -7,7 +7,8 @@ import lombok.Getter;
 
 public enum BizEnum {
     NO_LOGIN(99999,"please login"),
-    PARAMETER_EXCEPTION(30000,"请求参数不合法");
+    PARAMETER_EXCEPTION(30000,"请求参数不合法"),
+    PAGE_PARAMETER_NULL(30001,"分页参数为空");
 
     @Getter
     private Integer code;
