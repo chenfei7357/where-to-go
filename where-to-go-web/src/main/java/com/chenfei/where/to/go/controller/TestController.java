@@ -25,10 +25,6 @@ public class TestController {
     }
 
 
-
-
-
-
 //    public static String getLngLat(String addrName){
 //        //http://www.nmc.cn/f/rest/province全国各省份
 //        JSONObject object = new JSONObject();
@@ -56,7 +52,6 @@ public class TestController {
 //        System.out.println(entityr.toString());
 //        return entityr;
 //    }
-
 
 
 //    public static void main(String[] args) throws Exception {
