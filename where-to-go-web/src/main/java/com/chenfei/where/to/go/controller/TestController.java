@@ -20,7 +20,7 @@ public class TestController {
 
     @ApiOperation(value = "测试", notes = "测试")
     @RequestMapping(value = {"/test"}, method = {RequestMethod.GET})
-    public String getUserDetailByAccount() {
+    public String test() {
         return "hello ！";
     }
 

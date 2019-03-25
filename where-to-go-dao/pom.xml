@@ -8,18 +8,16 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
-    <groupId>com.chenfei.where.to.go</groupId>
     <artifactId>where-to-go-dao</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>com.chenfei.where.to.go</groupId>
-            <artifactId>where-to-go-model</artifactId>
+            <artifactId>where-to-go-common</artifactId>
         </dependency>
         <dependency>
             <groupId>com.chenfei.where.to.go</groupId>
-            <artifactId>where-to-go-common</artifactId>
+            <artifactId>where-to-go-model</artifactId>
         </dependency>
     </dependencies>
 
