@@ -19,3 +19,9 @@ spring:
 mybatis:
   mapper-locations: classpath:com/chenfei/where/to/go/mybatis/*.xml
   type-aliases-package: com.chenfei.where.to.go.model.po
+#pagehelper分页插件配置
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql

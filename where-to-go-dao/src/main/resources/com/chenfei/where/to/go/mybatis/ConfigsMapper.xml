@@ -13,12 +13,50 @@
   <sql id="Base_Column_List">
     con_name, con_value, remark, create_by, create_time, update_by, update_time
   </sql>
+
+  <sql id="Base_Where">
+    <where>
+      <trim prefixOverrides="and">
+        <if test="conName != null">
+          and con_name =  #{conName,jdbcType=VARCHAR}
+        </if>
+        <if test="conValue != null">
+          and con_value = #{conValue,jdbcType=VARCHAR}
+        </if>
+        <if test="remark != null">
+          and remark = #{remark,jdbcType=VARCHAR}
+        </if>
+        <if test="createBy != null">
+          and create_by = #{createBy,jdbcType=VARCHAR}
+        </if>
+        <if test="createTime != null">
+          and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateBy != null">
+          and update_by = #{updateBy,jdbcType=VARCHAR}
+        </if>
+        <if test="updateTime != null">
+          and update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+      </trim>
+    </where>
+  </sql>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from configs
     where con_name = #{conName,jdbcType=VARCHAR}
   </select>
+
+  <select id="queryPage" parameterType="com.chenfei.where.to.go.model.dto.ConfigsDTO"
+          resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from configs
+    <include refid="Base_Where"/>
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from configs
     where con_name = #{conName,jdbcType=VARCHAR}
