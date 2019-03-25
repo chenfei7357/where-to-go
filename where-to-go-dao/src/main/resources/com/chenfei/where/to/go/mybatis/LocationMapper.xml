@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chenfei.where.to.go.dao.LocationMapper">
+  <resultMap id="BaseResultMap" type="com.chenfei.where.to.go.model.vo.Location.LocationVO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="level" jdbcType="VARCHAR" property="level" />
+    <result column="lng" jdbcType="VARCHAR" property="lng" />
+    <result column="lat" jdbcType="VARCHAR" property="lat" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, code, name, level, lng, lat, note, create_time, update_time
+  </sql>
+
+  <sql id="Base_Where">
+    <where>
+      <trim prefixOverrides="and">
+        <if test="conName != null">
+          and con_name =  #{conName,jdbcType=VARCHAR}
+        </if>
+        <if test="conValue != null">
+          and con_value = #{conValue,jdbcType=VARCHAR}
+        </if>
+        <if test="remark != null">
+          and remark = #{remark,jdbcType=VARCHAR}
+        </if>
+        <if test="createBy != null">
+          and create_by = #{createBy,jdbcType=VARCHAR}
+        </if>
+        <if test="createTime != null">
+          and create_time = #{createTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateBy != null">
+          and update_by = #{updateBy,jdbcType=VARCHAR}
+        </if>
+        <if test="updateTime != null">
+          and update_time = #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+      </trim>
+    </where>
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from configs
+    where con_name = #{conName,jdbcType=VARCHAR}
+  </select>
+
+  <select id="queryPage" parameterType="com.chenfei.where.to.go.model.dto.ConfigsDTO"
+          resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from configs
+    <include refid="Base_Where"/>
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from configs
+    where con_name = #{conName,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.chenfei.where.to.go.model.vo.Location.LocationVO">
+    insert into location (code, name, level, lng, lat, note, create_time, update_time)
+    values
+    (#{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{level,jdbcType=VARCHAR},
+      #{lng,jdbcType=VARCHAR}, #{lat,jdbcType=TIMESTAMP}, #{note,jdbcType=VARCHAR},
+      now(),now())
+  </insert>
+  <insert id="insertSelective" parameterType="com.chenfei.where.to.go.model.po.Configs">
+    insert into configs
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="conName != null">
+        con_name,
+      </if>
+      <if test="conValue != null">
+        con_value,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="conName != null">
+        #{conName,jdbcType=VARCHAR},
+      </if>
+      <if test="conValue != null">
+        #{conValue,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.chenfei.where.to.go.model.po.Configs">
+    update configs
+    <set>
+      <if test="conValue != null">
+        con_value = #{conValue,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where con_name = #{conName,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.chenfei.where.to.go.model.po.Configs">
+    update configs
+    set con_value = #{conValue,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where con_name = #{conName,jdbcType=VARCHAR}
+  </update>
+</mapper>
