@@ -11,6 +11,18 @@ spring:
     url: jdbc:mysql://10.0.66.203:3306/newvss
     # 使用druid数据源
     type: com.alibaba.druid.pool.DruidDataSource
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    filters: stat,wall,log4j
+    logSlowSql: true
 
 swagger:
   enable: true
