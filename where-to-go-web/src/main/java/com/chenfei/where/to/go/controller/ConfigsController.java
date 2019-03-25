@@ -3,10 +3,10 @@ package com.chenfei.where.to.go.controller;
  * Created by chenfei on 2019/3/24 14:07
  */
 
+import com.chenfei.where.to.go.model.vo.ConfigsVO;
 import com.chenfei.where.to.go.response.CommonResponseUtils;
 import com.chenfei.where.to.go.response.CommonResultResponse;
 import com.chenfei.where.to.go.service.ConfigsService;
-import com.chenfei.where.to.go.model.vo.ConfigsVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -26,6 +26,7 @@ public class ConfigsController {
 
     @Resource
     private ConfigsService configsService;
+
 
     @RequestMapping(value = "/queryConfigByName/{name}",method = RequestMethod.GET)
     @ApiOperation(value = "根据字典名称查询字典信息", notes = "根据字典名称查询字典信息")

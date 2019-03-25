@@ -18,5 +18,5 @@ swagger:
 exclude:
   login:
    validate:
-    path: /login
+    path: /configs
     key: 111111

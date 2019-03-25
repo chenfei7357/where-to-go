@@ -25,6 +25,7 @@
         <lombok-version>1.18.2</lombok-version>
         <commons-lang3-version>3.7</commons-lang3-version>
         <cors-filter-version>2.6</cors-filter-version>
+        <httpclient-version>4.5.5</httpclient-version>
     </properties>
 
     <dependencyManagement>
@@ -107,9 +108,9 @@
             </dependency>
 
             <dependency>
-                <groupId>com.thetransactioncompany</groupId>
-                <artifactId>cors-filter</artifactId>
-                <version>${cors-filter-version}</version>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${httpclient-version}</version>
             </dependency>
 
         </dependencies>
