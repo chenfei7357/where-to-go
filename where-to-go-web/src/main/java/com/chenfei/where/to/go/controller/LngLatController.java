@@ -1,8 +1,11 @@
 package com.chenfei.where.to.go.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.chenfei.where.to.go.response.CommonResponseUtils;
+import com.chenfei.where.to.go.response.CommonResultResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -11,6 +14,8 @@ import org.apache.http.util.EntityUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
 
 /**
  * @author lixt
@@ -21,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping({"JWD"})
 @Api(description = "经纬度")
+@Slf4j
 public class LngLatController {
 
     String lng = "121.456798";//经度
@@ -28,8 +34,9 @@ public class LngLatController {
 
     @ApiOperation(value = "根据输入地址获取经纬度", notes = "根据输入地址获取经纬度")
     @RequestMapping(value = {"/lngLat-{addrName}"}, method = {RequestMethod.GET})
-    public String getLngLat(String addrName) {
+    public CommonResultResponse getLngLat(String addrName) {
         //http://www.nmc.cn/f/rest/province全国各省份
+        ArrayList<String> lngLat = new ArrayList();
         JSONObject object = new JSONObject();
         //创建客户端
         CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -46,16 +53,26 @@ public class LngLatController {
                 //当响应状态码为200时，获得该网页源码并打印
                 String entity = EntityUtils.toString(response.getEntity(), "utf-8");
                 object = (JSONObject) JSONObject.parse(entity);
-                entityr = object.getJSONObject("result").get("location").toString();
+                Object ret = object.get("result");
+                if (ret instanceof JSONObject) {
+                    entityr = object.getJSONObject("result").get("location").toString();
+                    object = (JSONObject) JSONObject.parse(entityr);
+                    lat = object.get("lat").toString();
+                    lng = object.get("lng").toString();
+                    lngLat.add(lat);
+                    lngLat.add(lng);
+                } else {
+                    log.info("地址输入有误！！");
+                }
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        object = (JSONObject) JSONObject.parse(entityr);
-        lat = object.get("lat").toString();
-        lng = object.get("lng").toString();
-
-        return "{" + lat + "," + lng + "}";
+        if (!entityr.isEmpty()) {
+            return CommonResponseUtils.success(lngLat);
+        } else {
+            return CommonResponseUtils.error("未找到该地址，请确认地址是否有误！");
+        }
     }
 }
