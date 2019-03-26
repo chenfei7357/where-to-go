@@ -42,7 +42,6 @@ public class LocationController {
     public CommonResultResponse getLocationLngLat(String addrName) {
         //http://www.nmc.cn/f/rest/province全国各省份
         InsertLocationVO record = new InsertLocationVO();
-        JSONObject object = new JSONObject();
         //创建客户端
         CloseableHttpClient httpClient = HttpClients.createDefault();
         //创建Get实例
@@ -54,17 +53,17 @@ public class LocationController {
             if (response.getStatusLine().getStatusCode() == 200) {
                 //当响应状态码为200时，获得该网页源码并打印
                 String entity = EntityUtils.toString(response.getEntity(), "utf-8");
-                object = (JSONObject) JSONObject.parse(entity);
+                JSONObject object = (JSONObject) JSONObject.parse(entity);
                 Object resultType = object.get("result");
                 if (resultType instanceof JSONObject) {
                     String lngLat = object.getJSONObject("result").get("location").toString();
-                    object = (JSONObject) JSONObject.parse(lngLat);
-                    lat = object.get("lat").toString();
-                    lng = object.get("lng").toString();
-                    //String level = object.getJSONObject("result").get("level").toString();
+                    JSONObject lngLatJson = (JSONObject) JSONObject.parse(lngLat);
+                    lat = lngLatJson.get("lat").toString();
+                    lng = lngLatJson.get("lng").toString();
+                    String level = object.getJSONObject("result").get("level").toString();
                     record.setCode(lng + lat);
                     record.setName(addrName);
-                    record.setLevel("商圈");
+                    record.setLevel(level);
                     record.setLng(lng);
                     record.setLat(lat);
                 } else {
