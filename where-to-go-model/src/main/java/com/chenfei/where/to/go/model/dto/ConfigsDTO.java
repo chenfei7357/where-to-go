@@ -1,9 +1,12 @@
 package com.chenfei.where.to.go.model.dto;
 
+import com.chenfei.where.to.go.model.validatorInterface.ValidatorInterface;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -33,9 +36,13 @@ public class ConfigsDTO implements Serializable {
     private Date updateTime;
 
     @ApiModelProperty("页码")
+    @NotNull(groups = ValidatorInterface.ConfigQuery.class,message = "分页参数不能为空")
+    @Min(groups = ValidatorInterface.ConfigQuery.class,value = 1,message = "分页参数不合法")
     private Integer page;
 
     @ApiModelProperty("每页容量")
+    @NotNull(groups = ValidatorInterface.ConfigQuery.class ,message = "分页参数不能为空")
+    @Min(groups = ValidatorInterface.ConfigQuery.class ,value = 1,message = "分页参数不合法")
     private Integer size;
 
 

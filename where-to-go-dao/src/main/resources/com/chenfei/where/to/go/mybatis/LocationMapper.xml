@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chenfei.where.to.go.dao.LocationMapper">
-  <resultMap id="BaseResultMap" type="com.chenfei.where.to.go.model.vo.Location.LocationVO">
+  <resultMap id="BaseResultMap" type="com.chenfei.where.to.go.model.vo.LocationVO">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="code" jdbcType="VARCHAR" property="code" />
     <result column="name" jdbcType="VARCHAR" property="name" />
@@ -63,7 +63,7 @@
     delete from configs
     where con_name = #{conName,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.chenfei.where.to.go.model.vo.Location.LocationVO">
+  <insert id="insert" parameterType="com.chenfei.where.to.go.model.vo.LocationVO">
     insert into location (code, name, level, lng, lat, note, create_time, update_time)
     values
     (#{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{level,jdbcType=VARCHAR},

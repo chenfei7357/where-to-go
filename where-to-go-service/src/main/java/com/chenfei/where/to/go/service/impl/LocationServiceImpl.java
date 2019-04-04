@@ -1,8 +1,8 @@
 package com.chenfei.where.to.go.service.impl;
 
 import com.chenfei.where.to.go.dao.LocationMapper;
-import com.chenfei.where.to.go.model.vo.Location.InsertLocationVO;
-import com.chenfei.where.to.go.model.vo.Location.LocationVO;
+import com.chenfei.where.to.go.model.vo.InsertLocationVO;
+import com.chenfei.where.to.go.model.vo.LocationVO;
 import com.chenfei.where.to.go.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -3,6 +3,7 @@ package com.chenfei.where.to.go.service.impl;
  * Created by chenfei on 2019/3/24 14:55
  */
 
+import com.chenfei.where.to.go.annotation.RedLock;
 import com.chenfei.where.to.go.dao.ConfigsMapper;
 import com.chenfei.where.to.go.enums.BizEnum;
 import com.chenfei.where.to.go.exception.CommonException;
@@ -12,9 +13,11 @@ import com.chenfei.where.to.go.model.vo.ConfigsVO;
 import com.chenfei.where.to.go.response.CommonPageResponseUtils;
 import com.chenfei.where.to.go.response.CommonPageResultResponse;
 import com.chenfei.where.to.go.service.ConfigsService;
+import com.chenfei.where.to.go.utils.RedisUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -25,20 +28,31 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class ConfigsServiceImpl implements ConfigsService {
 
     @Resource
     private ConfigsMapper configsMapper;
+
+    @Resource
+    private RedisUtil redisUtil;
+
     @Override
     public ConfigsVO queryConfigByName(String name) {
         if(StringUtils.isBlank(name)){
             throw new CommonException(BizEnum.PARAMETER_EXCEPTION.getCode(),BizEnum.PARAMETER_EXCEPTION.getDesc());
         }
         ConfigsVO vo = new ConfigsVO();
-        Configs configs = configsMapper.selectByPrimaryKey(name);
-        if (configs != null) {
-            BeanUtils.copyProperties(configs,vo);
+        String key="test-configs-key";
+        Configs configs =new Configs();
+        if (!redisUtil.hasKey(key)){
+            configs = configsMapper.selectByPrimaryKey(name);
+            redisUtil.set(key, configs, 300);
+        }else {
+            configs=((Configs) redisUtil.get(key));
         }
+        BeanUtils.copyProperties(configs,vo);
+
         return vo;
     }
 
@@ -61,5 +75,15 @@ public class ConfigsServiceImpl implements ConfigsService {
             }).collect(Collectors.toList());
         }
         return CommonPageResponseUtils.success(result,pageInfo.getTotal());
+    }
+
+    @Override
+    @RedLock(lockName = "config",waitTime = 20,leaseTime = 10)
+    public ConfigsVO queryConfigByRedLock(String name) throws Exception {
+        ConfigsVO configsVO = new ConfigsVO();
+        log.info("ThreadName"+Thread.currentThread().getName()+"进入请求");
+        configsVO.setConName("分布式锁测试");
+        Thread.sleep(1500);
+        return configsVO;
     }
 }

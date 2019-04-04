@@ -2,7 +2,7 @@ package com.chenfei.where.to.go.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.chenfei.where.to.go.enums.BizEnum;
-import com.chenfei.where.to.go.model.vo.Location.InsertLocationVO;
+import com.chenfei.where.to.go.model.vo.InsertLocationVO;
 import com.chenfei.where.to.go.response.CommonResponseUtils;
 import com.chenfei.where.to.go.response.CommonResultResponse;
 import com.chenfei.where.to.go.service.LocationService;

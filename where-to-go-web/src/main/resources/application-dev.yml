@@ -8,7 +8,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: newvss
     password: yh2016
-    url: jdbc:mysql://10.0.66.203:3306/newvss
+    url: jdbc:mysql://10.0.66.203:3306/where_to_go
     # 使用druid数据源
     type: com.alibaba.druid.pool.DruidDataSource
     initialSize: 5
@@ -23,9 +23,29 @@ spring:
     testOnReturn: false
     filters: stat,wall,log4j
     logSlowSql: true
-
+  #引入redis集群
+  redis:
+    cluster:
+      nodes:
+        - 192.168.161.3:7000
+        - 192.168.161.3:7001
+        - 192.168.161.3:7002
+        - 192.168.161.3:7003
+        - 192.168.161.3:7004
+        - 192.168.161.3:7005
+      max-redirects: 3 # 获取失败 最大重定向次数
+    jedis:
+      pool:
+        max-active: 300 #连接池最大连接数（使用负值表示没有限制）
+        max-idle: 100    # 连接池中的最大空闲连接
+        min-idle: 20     # 连接池中的最小空闲连接
+        max-wait: -1s    #最大等待时间
+    timeout: 60s
+    database: 0          # Redis数据库索引(默认为0)
 swagger:
   enable: true
+redisson:
+  cluster-addresses: redis://192.168.161.3:7000,redis://192.168.161.3:7001,redis://192.168.161.3:7002,redis://192.168.161.3:7003,redis://192.168.161.3:6377,redis://192.168.161.3:6374
 
 exclude:
   login:

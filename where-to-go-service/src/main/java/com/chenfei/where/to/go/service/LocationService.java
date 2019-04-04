@@ -1,6 +1,6 @@
 package com.chenfei.where.to.go.service;
 
-import com.chenfei.where.to.go.model.vo.Location.InsertLocationVO;
+import com.chenfei.where.to.go.model.vo.InsertLocationVO;
 
 /**
  * @author lixt

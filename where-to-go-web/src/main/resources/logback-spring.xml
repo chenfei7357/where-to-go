@@ -19,6 +19,7 @@
     </appender>
 
     <logger name="com.chenfei.where.to.go.dao" level="DEBUG" />
+    <logger name="org.apache.http" level="info"/>
 
     <root level="INFO">
         <appender-ref ref="CONSOLE" />

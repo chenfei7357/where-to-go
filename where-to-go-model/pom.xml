@@ -12,13 +12,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <optional>true</optional>
+            <groupId>com.chenfei.where.to.go</groupId>
+            <artifactId>where-to-go-common</artifactId>
         </dependency>
     </dependencies>
 
