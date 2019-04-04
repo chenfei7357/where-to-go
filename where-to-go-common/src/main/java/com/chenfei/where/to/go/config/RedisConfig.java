@@ -3,8 +3,7 @@ package com.chenfei.where.to.go.config;
  * Created by chenfei on 2019/3/29 13:44
  */
 
-import com.chenfei.where.to.go.redLock.RedissonProperties;
-import com.chenfei.where.to.go.utils.RedisUtil;
+import com.chenfei.where.to.go.properties.RedissonProperties;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -65,10 +64,5 @@ public class RedisConfig {
                 .setMasterConnectionPoolSize(redssionProperties.getMasterConnectionPoolSize())
                 .setSlaveConnectionPoolSize(redssionProperties.getSlaveConnectionPoolSize());
         return Redisson.create(config);
-    }
-
-    @Bean
-    public RedisUtil redisUtil(){
-        return new RedisUtil();
     }
 }

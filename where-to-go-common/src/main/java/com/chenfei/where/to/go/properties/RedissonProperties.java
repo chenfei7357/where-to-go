@@ -1,4 +1,4 @@
-package com.chenfei.where.to.go.redLock;
+package com.chenfei.where.to.go.properties;
 /*
  * Created by chenfei on 2019/3/29 17:02
  */
