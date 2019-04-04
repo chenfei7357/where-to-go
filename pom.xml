@@ -73,6 +73,11 @@
                 <artifactId>where-to-go-dubbo-client</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.chenfei.where.to.go</groupId>
+                <artifactId>where-to-go-task</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <!-- mysql数据源 -->
             <dependency>
                 <groupId>mysql</groupId>
@@ -185,6 +190,7 @@
         <module>where-to-go-model</module>
         <module>where-to-go-dubbo-api</module>
         <module>where-to-go-dubbo-client</module>
+        <module>where-to-go-task</module>
     </modules>
 
 </project>
