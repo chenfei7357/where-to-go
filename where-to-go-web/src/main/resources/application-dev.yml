@@ -52,3 +52,12 @@ exclude:
    validate:
     path: /configs
     key: 111111
+dubbo:
+  application:
+    name: where-to-go
+  registry:
+    protocol: zookeeper
+    address: 10.0.71.230:2181,10.0.71.231:2181,10.0.71.232:2181
+  protocol:
+    name: dubbo
+    port: 28080
