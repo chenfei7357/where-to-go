@@ -7,7 +7,6 @@ import com.chenfei.where.to.go.task.SimpleJobDemo;
 import com.dangdang.ddframe.job.api.simple.SimpleJob;
 import com.dangdang.ddframe.job.config.JobCoreConfiguration;
 import com.dangdang.ddframe.job.config.simple.SimpleJobConfiguration;
-import com.dangdang.ddframe.job.event.JobEventConfiguration;
 import com.dangdang.ddframe.job.event.rdb.JobEventRdbConfiguration;
 import com.dangdang.ddframe.job.lite.api.JobScheduler;
 import com.dangdang.ddframe.job.lite.config.LiteJobConfiguration;
@@ -45,8 +44,9 @@ public class ElasticJobConfig {
         return LiteJobConfiguration.newBuilder(new SimpleJobConfiguration(
                 JobCoreConfiguration.newBuilder(jobClass.getName(), cron, shardingTotalCount)
                         .description(description)
-                        .shardingItemParameters(shardingItemParameters).build()
-                , jobClass.getCanonicalName())
+                        .shardingItemParameters(shardingItemParameters)
+                        .build()
+                ,jobClass.getCanonicalName())
         ).overwrite(true).build();
     }
 
@@ -56,11 +56,9 @@ public class ElasticJobConfig {
             @Value("${stockJob.shardingTotalCount}") final int shardingTotalCount,
             @Value("${stockJob.shardingItemParameters}") final String shardingItemParameters,
             @Value("${stockJob.description}") final String description) {
-        // 定义日志数据库事件溯源配置
-        JobEventConfiguration jobEventRdbConfig = new JobEventRdbConfiguration(taskDataSource);
-
         return new SpringJobScheduler(simpleJob, regCenter,
                 getLiteJobConfiguration(simpleJob.getClass(), cron, shardingTotalCount,
-                        shardingItemParameters,description),jobEventRdbConfig);
+                        shardingItemParameters,description),
+                new JobEventRdbConfiguration(taskDataSource));// 定义日志数据库事件溯源配置
     }
 }
