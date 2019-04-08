@@ -5,10 +5,10 @@ spring:
       force: true
       enabled: true
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: com.mysql.jdbc.Driver
     username: newvss
     password: yh2016
-    url: jdbc:mysql://10.0.66.203:3306/where_to_go
+    url: jdbc:mysql://10.0.66.203:3306/where_to_go?useSSL=false&autoReconnect=true
     # 使用druid数据源
     type: com.alibaba.druid.pool.DruidDataSource
     initialSize: 5

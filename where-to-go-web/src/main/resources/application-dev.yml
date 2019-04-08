@@ -5,10 +5,10 @@ spring:
       force: true
       enabled: true
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: com.mysql.jdbc.Driver
     username: newvss
     password: yh2016
-    url: jdbc:mysql://10.0.66.203:3306/where_to_go
+    url: jdbc:mysql://10.0.66.203:3306/where_to_go?useSSL=false&autoReconnect=true
     # 使用druid数据源
     type: com.alibaba.druid.pool.DruidDataSource
     initialSize: 5
@@ -21,7 +21,7 @@ spring:
     testWhileIdle: true
     testOnBorrow: false
     testOnReturn: false
-    filters: stat,wall,log4j
+    filters: stat,wall
     logSlowSql: true
   #引入redis集群
   redis:
@@ -57,7 +57,17 @@ dubbo:
     name: where-to-go
   registry:
     protocol: zookeeper
-    address: 10.0.71.230:2181,10.0.71.231:2181,10.0.71.232:2181
+    address: 192.168.161.3:2181,192.168.161.4:2181,192.168.161.5:2181
   protocol:
     name: dubbo
     port: 28080
+  consumer:
+    check: false
+regCenter:
+  namespace: where-to-go
+
+stockJob:
+  description: 测试taskDemo
+  cron: 0/5 * * * * ?
+  shardingTotalCount: 4
+  shardingItemParameters: 0=北京,1=上海,2=广州,3=深圳

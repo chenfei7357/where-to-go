@@ -13,5 +13,16 @@
     <artifactId>where-to-go-task</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.chenfei.where.to.go</groupId>
+            <artifactId>where-to-go-service</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+        </dependency>
+    </dependencies>
+
 
 </project>
