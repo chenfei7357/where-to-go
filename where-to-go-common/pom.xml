@@ -17,6 +17,10 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>com.chenfei.where.to.go</groupId>
+            <artifactId>where-to-go-model</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>

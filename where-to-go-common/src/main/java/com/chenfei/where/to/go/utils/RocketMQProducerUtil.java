@@ -1,4 +1,4 @@
-package com.chenfei.where.to.go.service.rocketmq.producerUtils;
+package com.chenfei.where.to.go.utils;
 /*
  * Created by chenfei on 2019/4/10 18:30
  */

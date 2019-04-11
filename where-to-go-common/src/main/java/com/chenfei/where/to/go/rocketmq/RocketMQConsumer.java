@@ -1,4 +1,4 @@
-package com.chenfei.where.to.go.service.rocketmq;
+package com.chenfei.where.to.go.rocketmq;
 /*
  * Created by chenfei on 2019/4/10 18:14
  */
@@ -6,9 +6,9 @@ package com.chenfei.where.to.go.service.rocketmq;
 import com.alibaba.fastjson.JSON;
 import com.chenfei.where.to.go.exception.RoceketMqException;
 import com.chenfei.where.to.go.model.bo.TopicAndTagInfo;
-import com.chenfei.where.to.go.service.rocketmq.listen.MessageListen;
-import com.chenfei.where.to.go.service.rocketmq.processor.MessageProcessor;
-import com.chenfei.where.to.go.service.rocketmq.properties.TopicAndTagProperties;
+import com.chenfei.where.to.go.properties.TopicAndTagProperties;
+import com.chenfei.where.to.go.rocketmq.listen.MessageListen;
+import com.chenfei.where.to.go.rocketmq.processor.MessageProcessor;
 import com.chenfei.where.to.go.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;

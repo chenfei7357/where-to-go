@@ -1,4 +1,4 @@
-package com.chenfei.where.to.go.service.rocketmq.processor;
+package com.chenfei.where.to.go.rocketmq.processor;
 /*
  * Created by chenfei on 2019/4/10 18:11
  */

@@ -18,6 +18,10 @@
             <groupId>com.chenfei.where.to.go</groupId>
             <artifactId>where-to-go-model</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.chenfei.where.to.go</groupId>
+            <artifactId>where-to-go-common</artifactId>
+        </dependency>
     </dependencies>
 
 

@@ -1,4 +1,4 @@
-package com.chenfei.where.to.go.service.rocketmq;
+package com.chenfei.where.to.go.rocketmq;
 /*
  * Created by chenfei on 2019/4/10 18:07
  */
