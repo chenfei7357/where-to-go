@@ -47,6 +47,24 @@ swagger:
 redisson:
   cluster-addresses: redis://192.168.161.3:7000,redis://192.168.161.3:7001,redis://192.168.161.3:7002,redis://192.168.161.3:7003,redis://192.168.161.3:6377,redis://192.168.161.3:6374
 
+rocketmq:
+  namesrvAddr: 192.168.161.3:9876;192.168.161.4:9876;192.168.161.5:9876;192.168.161.6:9876
+  producer:
+    groupName: where-to-go-producer-group
+    maxMessageSize: 131072
+    sendMsgTimeout: 10000
+  consumer:
+    groupName: where-to-go-consumer-group
+    consumeThreadMin: 20
+    consumeThreadMax: 64
+    topicAndTagInfos:
+      - topic: where-to-go-1
+        tag: test-1
+        processorHandle: configProcessorImpl
+      - topic: where-to-go-2
+        tag: test-2
+        processorHandle: config2ProcessorImpl
+
 exclude:
   login:
    validate:
@@ -68,6 +86,6 @@ regCenter:
 
 stockJob:
   description: 测试taskDemo
-  cron: 0/5 * * * * ?
+  cron: 0 0/30 * * * ?
   shardingTotalCount: 4
   shardingItemParameters: 0=北京,1=上海,2=广州,3=深圳

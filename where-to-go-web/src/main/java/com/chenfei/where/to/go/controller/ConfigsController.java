@@ -60,4 +60,13 @@ public class ConfigsController {
         ConfigsVO configsVO =configsService.queryConfigByRedLock(name);
         return CommonResponseUtils.success(configsVO);
     }
+
+    @RequestMapping(value = "/queryConfigSendToMQ/{name}",method = RequestMethod.GET)
+    @ApiOperation(value = "根据字典名称查询字典信息发送MQ消息", notes = "根据字典名称查询字典信息发送MQ消息")
+    public CommonResultResponse<ConfigsVO> queryConfigSendToMQ(
+            @ApiParam(name="configsDTO",value="字典名称",required=true)
+            @NotNull(message = "请求参数不合法") @PathVariable("name") String name){
+        ConfigsVO configsVO =configsService.queryConfigSendToMQ(name);
+        return CommonResponseUtils.success(configsVO);
+    }
 }

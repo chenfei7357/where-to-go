@@ -16,4 +16,6 @@ public interface ConfigsService {
     CommonPageResultResponse<List<ConfigsVO>> queryPageConfig(ConfigsDTO configsDTO);
 
     ConfigsVO queryConfigByRedLock(String name) throws Exception;
+
+    ConfigsVO queryConfigSendToMQ(String name);
 }

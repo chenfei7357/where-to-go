@@ -3,6 +3,7 @@ package com.chenfei.where.to.go.service.impl;
  * Created by chenfei on 2019/3/24 14:55
  */
 
+import com.alibaba.fastjson.JSON;
 import com.chenfei.where.to.go.annotation.RedLock;
 import com.chenfei.where.to.go.dao.ConfigsMapper;
 import com.chenfei.where.to.go.enums.BizEnum;
@@ -13,6 +14,7 @@ import com.chenfei.where.to.go.model.vo.ConfigsVO;
 import com.chenfei.where.to.go.response.CommonPageResponseUtils;
 import com.chenfei.where.to.go.response.CommonPageResultResponse;
 import com.chenfei.where.to.go.service.ConfigsService;
+import com.chenfei.where.to.go.service.rocketmq.producerUtils.RocketMQProducerUtil;
 import com.chenfei.where.to.go.utils.RedisUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -36,6 +38,9 @@ public class ConfigsServiceImpl implements ConfigsService {
 
     @Resource
     private RedisUtil redisUtil;
+
+    @Resource
+    private RocketMQProducerUtil rocketMQProducerUtil;
 
     @Override
     public ConfigsVO queryConfigByName(String name) {
@@ -84,6 +89,15 @@ public class ConfigsServiceImpl implements ConfigsService {
         log.info("ThreadName"+Thread.currentThread().getName()+"进入请求");
         configsVO.setConName("分布式锁测试");
         Thread.sleep(1500);
+        return configsVO;
+    }
+
+    @Override
+    public ConfigsVO queryConfigSendToMQ(String name){
+        ConfigsVO configsVO = new ConfigsVO();
+        configsVO.setConName("发送MQtest");
+        rocketMQProducerUtil.sendMessage("where-to-go-1","test-1","1", JSON.toJSONString(configsVO));
+        rocketMQProducerUtil.sendMessage("where-to-go-2","test-2","2", JSON.toJSONString(configsVO));
         return configsVO;
     }
 }
