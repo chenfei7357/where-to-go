@@ -5,8 +5,8 @@ package com.chenfei.where.to.go.rocketmq.listen;
 
 import com.alibaba.fastjson.JSON;
 import com.chenfei.where.to.go.exception.RoceketMqException;
-import com.chenfei.where.to.go.rocketmq.RocketMQConsumer;
 import com.chenfei.where.to.go.rocketmq.processor.MessageProcessor;
+import com.chenfei.where.to.go.utils.RocketMQUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.consumer.listener.ConsumeOrderlyContext;
 import org.apache.rocketmq.client.consumer.listener.ConsumeOrderlyStatus;
@@ -30,16 +30,15 @@ public class MessageOrderListen implements MessageListenerOrderly {
     @Override
     public ConsumeOrderlyStatus consumeMessage(List<MessageExt> msgs, ConsumeOrderlyContext context) {
         MessageExt ext = msgs.get(0);
-        log.info("接收到的消息全部字段信息，{}",JSON.toJSONString(ext));
         String message = new String(ext.getBody());
         //获取到key
-        String key = RocketMQConsumer.dealKey(ext.getTopic(),ext.getTags());
+        String key = RocketMQUtils.dealKey(ext.getTopic(),ext.getTags());
         //根据key从handleMap里获取到我们的处理类
         MessageProcessor messageProcessor = handleMap.get(key);
         Object obj = null;
         try {
             // 设置自动提交
-            // context.setAutoCommit(true);
+            context.setAutoCommit(true);
             //将String类型的message反序列化成对应的对象。
             obj = messageProcessor.transferMessage(message);
         } catch (Exception e) {

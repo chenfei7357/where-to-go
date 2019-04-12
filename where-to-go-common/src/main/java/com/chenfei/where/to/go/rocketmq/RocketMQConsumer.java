@@ -9,6 +9,7 @@ import com.chenfei.where.to.go.model.bo.TopicAndTagInfo;
 import com.chenfei.where.to.go.properties.TopicAndTagProperties;
 import com.chenfei.where.to.go.rocketmq.listen.MessageListen;
 import com.chenfei.where.to.go.rocketmq.processor.MessageProcessor;
+import com.chenfei.where.to.go.utils.RocketMQUtils;
 import com.chenfei.where.to.go.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
@@ -59,7 +60,8 @@ public class RocketMQConsumer {
         //在监听类中增加两个消息处理类，当然可以增加更多，也就是往MessageListen类中的map集合放入处理类。
         MessageListen messageListene = new MessageListen();
         for (TopicAndTagInfo topicAndTagInfo : topicAndTagInfos) {
-            messageListene.registerHandler(dealKey(topicAndTagInfo.getTopic(),topicAndTagInfo.getTag()), getMessageProcessor(topicAndTagInfo.getProcessorHandle()));
+            messageListene.registerHandler(RocketMQUtils.dealKey(topicAndTagInfo.getTopic(),topicAndTagInfo.getTag()),
+                    (MessageProcessor)springContextUtil.getBean(topicAndTagInfo.getProcessorHandle()));
         }
         consumer.registerMessageListener(messageListene);
         try {
@@ -73,17 +75,5 @@ public class RocketMQConsumer {
             throw new RoceketMqException(e.getMessage());
         }
         return consumer;
-    }
-
-    private MessageProcessor getMessageProcessor(String processorHandle) {
-        return (MessageProcessor)springContextUtil.getBean(processorHandle);
-    }
-
-    public static String dealKey(String topic,String tag) {
-        StringBuilder sb = new StringBuilder();
-        return (sb.append(topic)
-                .append("-")
-                .append(tag))
-                .toString();
     }
 }

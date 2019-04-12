@@ -51,10 +51,12 @@ rocketmq:
   namesrvAddr: 192.168.161.3:9876;192.168.161.4:9876;192.168.161.5:9876;192.168.161.6:9876
   producer:
     groupName: where-to-go-producer-group
+    groupNameOrder: where-to-go-producer-group-order
     maxMessageSize: 131072
     sendMsgTimeout: 10000
   consumer:
     groupName: where-to-go-consumer-group
+    groupNameOrder: where-to-go-consumer-group-order
     consumeThreadMin: 20
     consumeThreadMax: 64
     topicAndTagInfos:

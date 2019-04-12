@@ -22,7 +22,6 @@ import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.rocketmq.client.producer.SendResult;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -97,13 +96,13 @@ public class ConfigsServiceImpl implements ConfigsService {
     public ConfigsVO queryConfigSendToMQ(String name){
         ConfigsVO configsVO = new ConfigsVO();
         configsVO.setConName("发送MQtest");
-        rocketMQProducerUtil.sendMessage("where-to-go-1","test-1","1", JSON.toJSONString(configsVO));
-        rocketMQProducerUtil.sendMessage("where-to-go-2","test-2","2", JSON.toJSONString(configsVO));
-        rocketMQProducerUtil.sendOrderMessage("where-to-go-order-3","test-order-3","1", JSON.toJSONString(configsVO),1);
-        rocketMQProducerUtil.sendOrderMessage("where-to-go-order-3","test-order-3","2", JSON.toJSONString(configsVO),1);
-        rocketMQProducerUtil.sendOrderMessage("where-to-go-order-3","test-order-3","3", JSON.toJSONString(configsVO),1);
-        SendResult sendResult = rocketMQProducerUtil.sendOrderMessage("where-to-go-order-3", "test-order-3", "4", JSON.toJSONString(configsVO), 1);
-        log.info("消息发送结果，{}",JSON.toJSONString(sendResult));
+        // rocketMQProducerUtil.sendMessage("where-to-go-1","test-1","1", JSON.toJSONString(configsVO));
+        // rocketMQProducerUtil.sendMessage("where-to-go-2","test-2","2", JSON.toJSONString(configsVO));
+        for(int i=0;i<50;i++){
+            ConfigsVO configsVO2 = new ConfigsVO();
+            configsVO2.setConName("发送MQtest"+i);
+            rocketMQProducerUtil.sendOrderMessage("where-to-go-order-3","test-order-3","1000"+i, JSON.toJSONString(configsVO2),2);
+        }
         return configsVO;
     }
 }

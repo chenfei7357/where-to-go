@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.common.message.Message;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -20,6 +21,10 @@ public class RocketMQProducerUtil {
 
     @Resource
     private DefaultMQProducer defaultMQProducer;
+
+    @Resource
+    @Qualifier("defaultOrderMQProducer")
+    private DefaultMQProducer defaultOrderMQProducer;
 
     /**
      * 发送普通消息的方法
@@ -72,7 +77,7 @@ public class RocketMQProducerUtil {
         }
         Message message = new Message(topic,tags,keys,contentText.getBytes());
         try {
-            SendResult sendResult = this.defaultMQProducer.send(message, (mqs, msg, arg) -> {
+            SendResult sendResult = this.defaultOrderMQProducer.send(message, (mqs, msg, arg) -> {
                 Integer id = (Integer) arg;
                 int index = id % mqs.size();
                 return mqs.get(index);

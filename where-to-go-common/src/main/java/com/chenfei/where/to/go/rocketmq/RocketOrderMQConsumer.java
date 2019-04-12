@@ -9,10 +9,12 @@ import com.chenfei.where.to.go.model.bo.TopicAndTagInfo;
 import com.chenfei.where.to.go.properties.TopicAndTagOrderProperties;
 import com.chenfei.where.to.go.rocketmq.listen.MessageOrderListen;
 import com.chenfei.where.to.go.rocketmq.processor.MessageProcessor;
+import com.chenfei.where.to.go.utils.RocketMQUtils;
 import com.chenfei.where.to.go.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.exception.MQClientException;
+import org.apache.rocketmq.common.consumer.ConsumeFromWhere;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -32,7 +34,7 @@ public class RocketOrderMQConsumer {
     @Value("${rocketmq.namesrvAddr}")
     private String namesrvAddr;
 
-    @Value("${rocketmq.consumer.groupName}")
+    @Value("${rocketmq.consumer.groupNameOrder}")
     private String groupName;
 
     @Value("${rocketmq.consumer.consumeThreadMin}")
@@ -50,16 +52,18 @@ public class RocketOrderMQConsumer {
         if(CollectionUtils.isEmpty(topicAndTagInfos)){
             throw new RoceketMqException("订阅主题信息、tag为空");
         }
-        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer(groupName+"-order");
+        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer(groupName);
         consumer.setNamesrvAddr(namesrvAddr);
         consumer.setConsumeThreadMin(consumeThreadMin);
         consumer.setConsumeThreadMax(consumeThreadMax);
+        consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
         consumer.setVipChannelEnabled(false);
         //我们自己实现的监听类
         //在监听类中增加两个消息处理类，当然可以增加更多，也就是往MessageListen类中的map集合放入处理类。
         MessageOrderListen messageOrderListen = new MessageOrderListen();
         for (TopicAndTagInfo topicAndTagInfo : topicAndTagInfos) {
-            messageOrderListen.registerHandler(dealKey(topicAndTagInfo.getTopic(),topicAndTagInfo.getTag()), getMessageProcessor(topicAndTagInfo.getProcessorHandle()));
+            messageOrderListen.registerHandler(RocketMQUtils.dealKey(topicAndTagInfo.getTopic(),topicAndTagInfo.getTag()),
+                    (MessageProcessor)springContextUtil.getBean(topicAndTagInfo.getProcessorHandle()));
         }
         consumer.registerMessageListener(messageOrderListen);
         try {
@@ -73,17 +77,5 @@ public class RocketOrderMQConsumer {
             throw new RoceketMqException(e.getMessage());
         }
         return consumer;
-    }
-
-    private MessageProcessor getMessageProcessor(String processorHandle) {
-        return (MessageProcessor)springContextUtil.getBean(processorHandle);
-    }
-
-    public static String dealKey(String topic,String tag) {
-        StringBuilder sb = new StringBuilder();
-        return (sb.append(topic)
-                .append("-")
-                .append(tag))
-                .toString();
     }
 }

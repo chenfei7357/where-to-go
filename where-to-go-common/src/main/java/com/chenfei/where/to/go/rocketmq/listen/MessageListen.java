@@ -5,8 +5,8 @@ package com.chenfei.where.to.go.rocketmq.listen;
 
 import com.alibaba.fastjson.JSON;
 import com.chenfei.where.to.go.exception.RoceketMqException;
-import com.chenfei.where.to.go.rocketmq.RocketMQConsumer;
 import com.chenfei.where.to.go.rocketmq.processor.MessageProcessor;
+import com.chenfei.where.to.go.utils.RocketMQUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
@@ -34,7 +34,7 @@ public class MessageListen implements MessageListenerConcurrently {
         MessageExt ext = list.get(0);
         String message = new String(ext.getBody());
         //获取到key
-        String key = RocketMQConsumer.dealKey(ext.getTopic(),ext.getTags());
+        String key = RocketMQUtils.dealKey(ext.getTopic(),ext.getTags());
         //根据key从handleMap里获取到我们的处理类
         MessageProcessor messageProcessor = handleMap.get(key);
         Object obj = null;
