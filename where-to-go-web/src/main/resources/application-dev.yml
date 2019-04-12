@@ -64,6 +64,10 @@ rocketmq:
       - topic: where-to-go-2
         tag: test-2
         processorHandle: config2ProcessorImpl
+    topicAndTagOrderInfos:
+    - topic: where-to-go-order-3
+      tag: test-order-3
+      processorHandle: config3ProcessorImpl
 
 exclude:
   login:

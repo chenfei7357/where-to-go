@@ -12,6 +12,7 @@ import org.apache.rocketmq.common.message.Message;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.Objects;
 
 @Component
 @Slf4j
@@ -45,6 +46,37 @@ public class RocketMQProducerUtil {
         Message message = new Message(topic,tags,keys,contentText.getBytes());
         try {
             SendResult sendResult = this.defaultMQProducer.send(message);
+            return sendResult;
+        } catch (Exception e) {
+            log.error("message send error :{}",e.getMessage());
+            e.printStackTrace();
+            throw new RoceketMqException(e);
+        }
+    }
+
+    public SendResult sendOrderMessage(String topic,String tags,String keys,String contentText,int orderId){
+        if(StringUtils.isBlank(topic)){
+            throw  new RoceketMqException("topic is blank");
+        }
+        if(StringUtils.isBlank(tags)){
+            throw  new RoceketMqException("tags is blank");
+        }
+        if(StringUtils.isBlank(keys)){
+            throw  new RoceketMqException("keys is blank");
+        }
+        if(StringUtils.isBlank(contentText)){
+            throw  new RoceketMqException("contentText is blank");
+        }
+        if(Objects.isNull(orderId)){
+            throw  new RoceketMqException("orderId is null");
+        }
+        Message message = new Message(topic,tags,keys,contentText.getBytes());
+        try {
+            SendResult sendResult = this.defaultMQProducer.send(message, (mqs, msg, arg) -> {
+                Integer id = (Integer) arg;
+                int index = id % mqs.size();
+                return mqs.get(index);
+            },orderId);
             return sendResult;
         } catch (Exception e) {
             log.error("message send error :{}",e.getMessage());
