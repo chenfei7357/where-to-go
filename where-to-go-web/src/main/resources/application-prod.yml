@@ -6,9 +6,9 @@ spring:
       enabled: true
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    username: newvss
-    password: yh2016
-    url: jdbc:mysql://10.0.66.203:3306/where_to_go?useSSL=false&autoReconnect=true
+    username: root
+    password: root
+    url: jdbc:mysql://192.168.161.3:3306/test?useSSL=false&autoReconnect=true
     # 使用druid数据源
     type: com.alibaba.druid.pool.DruidDataSource
     initialSize: 5

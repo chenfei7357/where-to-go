@@ -4,9 +4,10 @@ import com.chenfei.where.to.go.dao.LocationMapper;
 import com.chenfei.where.to.go.model.vo.InsertLocationVO;
 import com.chenfei.where.to.go.model.vo.LocationVO;
 import com.chenfei.where.to.go.service.LocationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 /**
  * @or lixt
@@ -17,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class LocationServiceImpl implements LocationService{
 
-    @Autowired
+    @Resource
     LocationMapper locationMapper;
 
     @Override

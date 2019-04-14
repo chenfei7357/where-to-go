@@ -94,15 +94,13 @@ public class ConfigsServiceImpl implements ConfigsService {
 
     @Override
     public ConfigsVO queryConfigSendToMQ(String name){
-        ConfigsVO configsVO = new ConfigsVO();
-        configsVO.setConName("发送MQtest");
-        // rocketMQProducerUtil.sendMessage("where-to-go-1","test-1","1", JSON.toJSONString(configsVO));
-        // rocketMQProducerUtil.sendMessage("where-to-go-2","test-2","2", JSON.toJSONString(configsVO));
-        for(int i=0;i<50;i++){
-            ConfigsVO configsVO2 = new ConfigsVO();
-            configsVO2.setConName("发送MQtest"+i);
-            rocketMQProducerUtil.sendOrderMessage("where-to-go-order-3","test-order-3","1000"+i, JSON.toJSONString(configsVO2),2);
+        for(int i=0;i<5;i++){
+            ConfigsVO configsVO = new ConfigsVO();
+            configsVO.setConName("发送MQtest"+i);
+            rocketMQProducerUtil.sendMessage("where-to-go-2","test-2","2", JSON.toJSONString(configsVO));
+            rocketMQProducerUtil.sendOrderMessage("where-to-go-order-3","test-order-3","1000"+i, JSON.toJSONString(configsVO),2);
         }
-        return configsVO;
+        ConfigsVO vo = new ConfigsVO();
+        return vo;
     }
 }
